@@ -25,6 +25,39 @@
         </div>
     </header>
     <main id="app">
+        <section id="scientific-calculator">
+            <h2>Constants Calculator</h2>
+            
+            <div class="calc-display-wrapper">
+                <input type="text" id="calc-input" class="search-input" 
+                       placeholder="Type expression... (use \ for constants)" autoComplete="off">
+                <div id="constants-suggestions" class="hidden"></div>
+            </div>
+        
+            <div class="calc-keypad">
+                <button class="search-button op-btn" data-val="+">+</button>
+                <button class="search-button op-btn" data-val="-">-</button>
+                <button class="search-button op-btn" data-val="*">×</button>
+                <button class="search-button op-btn" data-val="/">÷</button>
+                <button class="search-button op-btn" data-val="(">(</button>
+                <button class="search-button op-btn" data-val=")">)</button>
+                <button class="search-button op-btn" data-val="**">^</button>
+                <button class="search-button" id="clear-calc">C</button>
+                <button id="execute-calc" class="search-button">Calculate Result</button>
+            </div>
+        
+            <div id="calc-result">
+                Result: --
+            </div>
+            <div id="calc-history">
+                <h3>RECENT CALCULATIONS</h3>
+                <div id="calc-history-list">
+                    </div>
+                <button id="clear-history">
+                    Clear History
+                </button>
+            </div>
+        </section>
         <div id="constants-container"></div>
     </main>
     <footer class="main-footer">

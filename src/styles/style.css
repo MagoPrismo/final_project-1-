@@ -145,7 +145,7 @@ a:hover {
 }
 
 /*Particle Card */
-.particle-card {
+.particle-card, #scientific-calculator {
     background-color: #1a1e27; 
     border: 1px solid var(--electron-purple);
     border-radius: 10px;
@@ -377,4 +377,93 @@ a:hover {
 .constant-card .details strong {
     color: var(--atomic-teal);
     font-family: 'Roboto Mono', monospace;
+}
+
+#constants-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #1a1e27;
+    border: 1px solid var(--electron-purple);
+    border-top: none;
+    z-index: 2000;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 0 0 5px 5px;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    border-bottom: 1px solid #232936;
+}
+
+.suggestion-item:hover {
+    background-color: var(--electron-purple);
+    color: white;
+}
+
+#scientific-calculator {
+    margin: 30px auto; 
+    width: 30%;
+    position: relative;
+}
+
+.calc-display-wrapper {
+    position: relative;
+}
+
+#calc-input {
+    width: 86.5%;
+    font-family: 'Roboto Mono';
+    padding-right: 40px;
+}
+
+.calc-keypad {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 10px; 
+    margin-top: 15px;
+}
+
+#execute-calc {
+    grid-column: span 4; 
+    margin-top: 5px;
+}
+
+#clear-calc {
+    background-color: var(--electron-purple); 
+    color: white;
+}
+
+#calc-result {
+    margin-top: 15px; 
+    font-family: 'Roboto Mono'; 
+    color: var(--atomic-teal); 
+    font-size: 1.2em; 
+    min-height: 1.5em;
+}
+
+#calc-history {
+    margin-top: 20px; 
+    border-top: 1px solid var(--electron-purple); 
+    padding-top: 10px;
+}
+
+#calc-history h3 {
+    font-size: 0.9em; 
+    color: var(--electron-purple); 
+    margin-bottom: 10px;
+}
+
+#clear-history {
+    background: none; 
+    border: none; 
+    color: var(--text-light-gray); 
+    cursor: pointer; 
+    font-size: 0.7em; 
+    text-decoration: underline; 
+    margin-top: 10px;
 }

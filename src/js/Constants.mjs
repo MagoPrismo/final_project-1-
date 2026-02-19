@@ -29,3 +29,4 @@ export async function fetchAllConstants() {
     const data = await getJson(url);
     return data.map(item => new Constants(item));
 }
+

@@ -80,27 +80,21 @@ filterLinks.forEach(link => {
 const searchInput = document.querySelector(".search-input");
 const searchButton = document.querySelector(".search-button");
 
+// --- FUNÇÃO DE BUSCA CORRIGIDA ---
 function peformSearch(){
     const term = searchInput.value.toLowerCase();
-    const allParticles = document.querySelectorAll(".particle-card");
-    const allConstants = document.querySelectorAll(".constant-card");
+    
+    // Selecionamos todos os cards (partículas e constantes)
+    const allCards = document.querySelectorAll(".particle-card, .constant-card");
 
-    allParticles.forEach(card => {
+    allCards.forEach(card => {
+        // Buscamos o título h2 de cada card
         const name = card.querySelector("h2").textContent.toLowerCase();
-        const id = card.querySelector("p").textContent.toLocaleLowerCase();
+        
+        // Pegamos todo o texto do card para aumentar a abrangência da busca
+        const fullText = card.textContent.toLowerCase();
 
-        if (term === "" || name.includes(term) || id.includes(term)) {
-            card.style.display = "";
-        } else {
-            card.style.display = "none";
-        }
-    });
-
-    allConstants.forEach(card => {
-        const name = card.querySelector("h2").textContent.toLowerCase();
-        const id = card.querySelector("p").textContent.toLocaleLowerCase();
-
-        if (term === "" || name.includes(term) || id.includes(term)) {
+        if (term === "" || name.includes(term) || fullText.includes(term)) {
             card.style.display = "";
         } else {
             card.style.display = "none";
@@ -110,32 +104,129 @@ function peformSearch(){
 
 searchButton.addEventListener("click", (e) => {
     e.preventDefault();
-
     peformSearch();
-})
+});
 
-// constants
-
+// --- CONSTANTES ---
 async function populateConstants() {
     const container = document.querySelector("#constants-container");
-    if (!container) {
-        return; // Sai da função silenciosamente
-    }
-    const constants = await fetchAllConstants();
+    if (!container) return;
 
-    container.innerHTML = constants.map(c => c.renderCard()).join('')
+    const constants = await fetchAllConstants();
+    container.innerHTML = constants.map(c => c.renderCard()).join('');
     
-    // open the card
     const cards = container.querySelectorAll('.constant-card');
     cards.forEach(card => {
-    card.addEventListener('click', () => {
-
-        const details = card.querySelector('.details');
-        details.classList.toggle('hidden');
-        
-        card.classList.toggle('active');
+        card.addEventListener('click', () => {
+            const details = card.querySelector('.details');
+            details.classList.toggle('hidden');
+            card.classList.toggle('active');
+        });
     });
-});
 }
 
 populateConstants();
+
+// --- CALCULADORA (LÓGICA UNIFICADA) ---
+async function initCalculator() {
+    const input = document.getElementById('calc-input');
+    const suggestions = document.getElementById('constants-suggestions');
+    const resultDiv = document.getElementById('calc-result');
+    const clearBtn = document.getElementById('clear-calc');
+    const executeBtn = document.getElementById('execute-calc');
+    const clearHistoryBtn = document.getElementById('clear-history');
+
+    if (!input || !resultDiv) return; // Segurança caso não esteja na página da calculadora
+
+    const constants = await fetchAllConstants();
+
+    // Eventos dos botões de operação
+    document.querySelectorAll('.op-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            input.value += btn.getAttribute('data-val');
+            input.focus();
+        });
+    });
+
+    clearBtn.addEventListener('click', () => {
+        input.value = "";
+        resultDiv.textContent = "Result: --";
+    });
+
+    // Lógica do Slash Command "\"
+    input.addEventListener('input', () => {
+        if (input.value.slice(-1) === '\\') {
+            showSuggestions();
+        } else if (!input.value.includes('\\')) {
+            suggestions.classList.add('hidden');
+        }
+    });
+
+    function showSuggestions() {
+        suggestions.innerHTML = constants.map(c => `
+            <div class="suggestion-item" data-value="${c.value}">
+                ${c.name} (${c.value})
+            </div>
+        `).join('');
+        suggestions.classList.remove('hidden');
+
+        suggestions.querySelectorAll('.suggestion-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const constantValue = item.getAttribute('data-value');
+                input.value = input.value.replace(/\\$/, constantValue);
+                suggestions.classList.add('hidden');
+                input.focus();
+            });
+        });
+    }
+
+    // Execução do Cálculo e Salvamento
+    executeBtn.addEventListener('click', () => {
+        try {
+            const expression = input.value;
+            // O eval resolve a string matemática diretamente
+            const resultValue = eval(expression);
+            const formattedResult = resultValue.toExponential(6);
+            
+            resultDiv.innerHTML = `Result: <strong>${formattedResult}</strong>`;
+            
+            saveCalculation(expression, formattedResult);
+        } catch (err) {
+            resultDiv.innerHTML = `<span style="color:red">Invalid Expression</span>`;
+        }
+    });
+
+    if (clearHistoryBtn) {
+        clearHistoryBtn.addEventListener('click', () => {
+            localStorage.removeItem('calc_history');
+            renderHistory();
+        });
+    }
+
+    renderHistory();
+}
+
+// --- FUNÇÕES DE HISTÓRICO (FORA DA INIT PARA ACESSO GLOBAL) ---
+function saveCalculation(expression, result) {
+    const history = JSON.parse(localStorage.getItem('calc_history')) || [];
+    const newEntry = { expression, result, date: new Date().toLocaleString() };
+    history.unshift(newEntry);
+    localStorage.setItem('calc_history', JSON.stringify(history.slice(0, 5)));
+    renderHistory();
+}
+
+function renderHistory() {
+    const historyContainer = document.getElementById('calc-history-list');
+    if (!historyContainer) return;
+
+    const history = JSON.parse(localStorage.getItem('calc_history')) || [];
+    historyContainer.innerHTML = history.map(item => `
+        <div style="border-bottom: 1px solid #232936; padding: 5px 0; font-size: 0.8em;">
+            <div style="color: var(--text-light-gray);">${item.expression}</div>
+            <div style="color: var(--atomic-teal); font-family: 'Roboto Mono';">${item.result}</div>
+        </div>
+    `).join('');
+}
+
+// Inicializa a calculadora após carregar tudo
+initCalculator();
