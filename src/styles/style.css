@@ -1,0 +1,380 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto+Mono:wght@700&display=swap');
+
+:root {
+    --deep-space-blue: #0B0E14;
+    --atomic-teal: #00D1B2;
+    --proton-white: #F5F5F5;
+    --electron-purple: #9B51E0;
+    --text-light-gray: #B0B0B0; 
+}
+
+/*  Global styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--deep-space-blue);
+    color: var(--proton-white);
+    margin: 0;
+    line-height: 1.6;
+    display: flex; 
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--proton-white);
+}
+
+a {
+    color: var(--atomic-teal);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* HEADER */
+.main-header {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--electron-purple);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-atom {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--proton-white);
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-link {
+    color: var(--proton-white);
+    font-weight: 700;
+    font-size: 1.1em;
+    padding: 5px 0;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--atomic-teal);
+    border-bottom: 2px solid var(--atomic-teal);
+    text-decoration: none;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-input {
+    background-color: var(--deep-space-blue);
+    border: 1px solid var(--electron-purple);
+    border-radius: 5px;
+    padding: 8px 12px;
+    color: var(--proton-white);
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-input::placeholder {
+    color: var(--text-light-gray);
+}
+
+.search-input:focus {
+    border-color: var(--atomic-teal);
+}
+
+.search-button {
+    background-color: var(--atomic-teal);
+    color: var(--deep-space-blue);
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #00A690; 
+}
+
+#app {
+    display: flex;
+    flex-flow: column;
+}
+
+/* MAIN CONTENT */
+.particle-grid {
+    flex-grow: 1; 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 20px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 20px auto; 
+}
+
+/*Particle Card */
+.particle-card {
+    background-color: #1a1e27; 
+    border: 1px solid var(--electron-purple);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.particle-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.particle-card h2 {
+    color: var(--atomic-teal);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.6em;
+}
+
+.particle-card p {
+    margin-bottom: 5px;
+    color: var(--text-light-gray);
+}
+
+.particle-card strong {
+    color: var(--proton-white);
+}
+
+.particle-card hr {
+    border: none;
+    border-top: 1px dashed var(--electron-purple);
+    margin: 15px 0;
+}
+
+.particle-card small {
+    color: var(--text-light-gray);
+}
+
+.particleCards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.particleCards h2 {
+    grid-column: 1/ span 4;
+    padding-left: 15px;
+}
+
+.particleCards h2 {
+    grid-column: 1/ span 4;
+}
+
+.particleImage {
+    display: flex;
+    justify-content: center;
+}
+
+.particleCards img {
+    border-radius: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.details-btn {
+    background-color: var(--atomic-teal);
+    color: var(--deep-space-blue);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-family: 'Roboto Mono', monospace;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.details-btn:hover {
+    background-color: var(--electron-purple);
+    color: var(--proton-white);
+}
+
+.details-content {
+    margin-top: 15px;
+    text-align: left;
+    animation: fadeIn 0.3s ease;
+}
+
+.prop-item {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.prop-item small {
+    color: var(--electron-purple);
+    font-size: 0.75em;
+    text-transform: uppercase;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Spinner */
+.loader {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 209, 178, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--atomic-teal);
+    animation: spin 1s ease-in-out infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--atomic-teal);
+    font-size: 0.9em;
+}
+
+/* FOOTER */
+.main-footer {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 25px 30px;
+    border-top: 1px solid var(--electron-purple);
+    text-align: center;
+    color: var(--text-light-gray);
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+.footer-content p {
+    margin: 5px 0;
+}
+
+.footer-links a {
+    color: var(--text-light-gray);
+    margin: 0 8px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--atomic-teal);
+    text-decoration: none;
+}
+
+/* constants */
+
+
+/* CONSTANTS CONTAINER & CARDS */
+
+#constants-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.constant-card {
+    background-color: #1a1e27; /* Mesma cor dos particle-cards */
+    border: 1px solid var(--electron-purple);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+}
+
+.constant-card:hover {
+    border-color: var(--atomic-teal);
+    box-shadow: 0 8px 20px rgba(0, 209, 178, 0.2);
+    cursor: pointer;
+}
+
+.constant-card h2 {
+    color: var(--atomic-teal);
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    min-height: 2.4em; /* Mantém títulos alinhados */
+}
+
+.constant-preview-value {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--proton-white);
+    font-size: 0.95em;
+    word-break: break-all; /* Evita que números longos quebrem o card */
+}
+
+/* ESTADO ATIVO (AUMENTAR TAMANHO) */
+.constant-card.active {
+    grid-column: span 2; /* Ocupa duas colunas se houver espaço */
+    transform: scale(1.02);
+    border-color: var(--atomic-teal);
+    background-color: #232936;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.constant-card.active .details {
+    display: block;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--electron-purple);
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.constant-card .details p {
+    font-size: 0.85em;
+    margin: 8px 0;
+    color: var(--text-light-gray);
+}
+
+.constant-card .details strong {
+    color: var(--atomic-teal);
+    font-family: 'Roboto Mono', monospace;
+}
