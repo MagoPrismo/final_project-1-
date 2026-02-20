@@ -467,3 +467,36 @@ a:hover {
     text-decoration: underline; 
     margin-top: 10px;
 }
+
+@media (max-width: 768px) {
+    /* Header: Empilha o logo e a busca */
+    .main-header {
+        flex-direction: column;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .main-nav ul{
+        flex-wrap: wrap;
+    }
+
+    #app {
+        width: 100%;
+    }
+
+    .particleCards {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    #constants-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #scientific-calculator {
+        width: 80%;
+    }
+    
+}
